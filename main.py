@@ -170,13 +170,14 @@ def message_box(subject, content):
 
 def main():
     # This will attempt to initialize all the pygame modules for you. Not all pygame modules need to be initialized, but this will automatically initialize the ones that do. You can also easily initialize each pygame module by hand. For example to only initialize the font module you would just call.
-    # pygame.init()
-    # pygame.display.init()
+    pygame.init()
+    pygame.display.init()
     """main usuchamia się na początku gry/progrmu i jest odpowiedzialny za jego działanie, flow, etc."""
     global size, rows, s, apple # widoczne poza funkcją
     # obszar gry
     size = 500
     rows = 20
+    score = 0
 
     # inicjalizacja obszaru gry
     window = pygame.display.set_mode((size, size))
@@ -198,12 +199,13 @@ def main():
 
         if s.body[0].pos == apple.pos: # jeżeli głowa węża jest na pozycji jabłka
             s.add_cube() # powiększamy węża o jeden element
+            score += 1 # dodajemy punkt
             apple = Cube(random_apple(s), color=(255, 0, 0)) # tworzymy nowe jabłko
 
         # wykrywamy kolizję i ją obsługujemy
         for x in range(len(s.body)): # dla każdego elementu body
             if s.body[x].pos in list(map(lambda z: z.pos, s.body[x+1:])): # sprawdza czy dany element body jest równy któremukolwiek elenetowi body
-                message_box("GAME OVER", "Zagraj ponownie")
+                message_box("GAME OVER", f"Zagraj ponownie\nZdobyłeś {score} punktów")
                 s.reset((10, 10)) # reset węża do pozycji 10, 10
                 break
 
