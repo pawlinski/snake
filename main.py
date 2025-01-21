@@ -171,11 +171,12 @@ def main():
     # This will attempt to initialize all the pygame modules for you. Not all pygame modules need to be initialized, but this will automatically initialize the ones that do. You can also easily initialize each pygame module by hand. For example to only initialize the font module you would just call.
     pygame.init()
     pygame.display.init()
-    """main usuchamia się na początku gry/progrmu i jest odpowiedzialny za jego działanie, flow, etc."""
-    global size, rows, s, apple # widoczne poza funkcją
+    """main uruchamia się na początku gry/programu i jest odpowiedzialny za jego działanie, flow, etc."""
+    global size, rows, s, apple, score # widoczne poza funkcją
     # obszar gry
     size = 500
     rows = 20
+
     score = 0
 
     # inicjalizacja obszaru gry
@@ -206,6 +207,7 @@ def main():
             if s.body[x].pos in list(map(lambda z: z.pos, s.body[x+1:])): # sprawdza czy dany element body jest równy któremukolwiek elenetowi body
                 message_box("GAME OVER", f"Zagraj ponownie\nZdobyłeś {score} punktów")
                 s.reset((10, 10)) # reset węża do pozycji 10, 10
+                score = 0  # reset punktów
                 break
 
         draw_window(window) # rysuje planszę
